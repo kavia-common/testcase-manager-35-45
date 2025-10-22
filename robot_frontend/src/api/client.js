@@ -102,13 +102,13 @@ export function createApiClient(baseUrl = DEFAULT_BASE) {
 
   const runs = {
     triggerTestcase: (id, variables) =>
-      request(`/testcases/${id}/run`, { method: 'POST', body: { variables } }),
+      request(`/runs`, { method: 'POST', body: { target_type: 'testcase', target_id: id, variables } }),
     triggerScenario: (id, variables) =>
-      request(`/scenarios/${id}/run`, { method: 'POST', body: { variables } }),
+      request(`/runs`, { method: 'POST', body: { target_type: 'scenario', target_id: id, variables } }),
     list: (params) => request('/runs', { query: params }),
     get: (id) => request(`/runs/${id}`),
-    logs: (id) => request(`/runs/${id}/logs`), // text/plain expected
-    artifacts: (id) => request(`/runs/${id}/artifacts`),
+    logs: (id) => request(`/logs/${id}/steps`),
+    artifacts: (id) => request(`/logs/${id}/attachments`),
   };
 
   const configs = {
